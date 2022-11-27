@@ -21,10 +21,6 @@ function App() {
     .split("")
     .every((letter) => lettersGussed.includes(letter));
 
-  console.log(isLosser);
-  console.log(isWinner);
-  console.log(wordToguess);
-
   const addGussedletter = useCallback(
     (letter) => {
       if (lettersGussed.includes(letter)) return;
