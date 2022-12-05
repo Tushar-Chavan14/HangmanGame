@@ -4,6 +4,7 @@ import Keyboard from "./components/Keyboard";
 import { useCallback, useEffect, useState } from "react";
 import words from "./wordlist.json";
 import Cmodal from "./components/Modal";
+import Hint from "./components/Hint";
 
 function App() {
   const [wordToguess, setwordToguess] = useState(() => {
@@ -11,6 +12,8 @@ function App() {
   });
 
   const [lettersGussed, setlettersGussed] = useState([]);
+
+  const [hintLimit, sethintLimit] = useState(false);
 
   const incorrectguess = lettersGussed.filter(
     (letter) => !wordToguess.includes(letter)
@@ -56,7 +59,19 @@ function App() {
         alignItems: "center",
       }}
     >
-      <Cmodal isLosser={isLosser} isWinner={isWinner} />
+      <div style={{ position: "absolute" }}>
+        <Hint
+          word={wordToguess}
+          setHintedLetter={addGussedletter}
+          sethintLimit={sethintLimit}
+        />
+      </div>
+      <Cmodal
+        isLosser={isLosser}
+        isWinner={isWinner}
+        hintLimit={hintLimit}
+        sethintLimit={sethintLimit}
+      />
       <div style={{ fontSize: "2rem", textAlign: "center" }}>Hangman game</div>
 
       <Hangmandrawing incorrectguess={incorrectguess.length} />

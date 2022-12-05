@@ -4,25 +4,27 @@ import style from "./keyboard.module.css";
 
 Modal.setAppElement("#root");
 
-const Cmodal = ({ isLosser, isWinner }) => {
+const Cmodal = ({ isLosser, isWinner, hintLimit, sethintLimit }) => {
   const [close, setclose] = useState(false);
 
   useEffect(() => {
-    if (isLosser || isWinner) {
+    if (isLosser || isWinner || hintLimit) {
       setclose(true);
     }
-    return () => {};
-  }, [isLosser, isWinner]);
+    return () => {
+      return;
+    };
+  }, [isLosser, isWinner, hintLimit]);
 
   return (
     <div>
       <Modal
         isOpen={close}
-        onRequestClose={() => setclose((pre) => !pre)}
+        // onRequestClose={() => setclose((pre) => !pre)} // overlay tap modal close
         style={{
-          overlay: { backgroundColor: "grey" },
+          overlay: { backgroundColor: "rgba(0,0,0,0.9)" },
           content: {
-            color: "black",
+            color: "#f9f9f9",
             top: "50%",
             left: "50%",
             right: "auto",
@@ -32,7 +34,9 @@ const Cmodal = ({ isLosser, isWinner }) => {
             width: "400px",
             height: "250px",
             textAlign: "center",
-            backgroundColor: "#D6E4E5",
+            backgroundColor: "#1d2025",
+            borderRadius: "10px",
+            border: "none",
           },
         }}
       >
@@ -47,6 +51,24 @@ const Cmodal = ({ isLosser, isWinner }) => {
           <>
             <h2 style={{ marginTop: "3rem" }}>"Badluck"</h2>
             <p>Try again</p>
+          </>
+        )}
+
+        {hintLimit && (
+          <>
+            <h2 style={{ marginTop: "3rem" }}>"Hint limit"</h2>
+            <p>Reached</p>
+
+            <button
+              onClick={() => {
+                setclose((prev) => !prev);
+                sethintLimit((prev) => !prev);
+              }}
+              className={style.btn}
+              style={{ margin: "1rem" }}
+            >
+              close
+            </button>
           </>
         )}
 

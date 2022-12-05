@@ -1,0 +1,14 @@
+.hint {
+  font-size: 60px;
+}
+
+.hintTxt {
+  position: absolute;
+  left: 41rem;
+  top: 3.5rem;
+}
+
+
+.hint:hover {
+  font-size: 64px;
+}
